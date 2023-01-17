@@ -1,5 +1,5 @@
 # Mikrotik-RoS-Scripts
-Mikrotik - Scripts
+
 Place this script in mikrotik router RoS > system > scripts and set a scheduler to run the script every 120 seconds. 
 Use the terminal to create the prevSlot global variable before you run the script so it is initialized: global prevSlot "1";
 Requirements: Running Cardano Node with Prometheus installed see:
