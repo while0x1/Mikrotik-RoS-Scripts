@@ -1,0 +1,11 @@
+:global prevSlot
+:local result [/tool fetch url="http://172.168.20.3:12798/metrics" as-value output=user];
+:if ($result->"status" = "finished") do={
+    :local slotinEpochLine [:pick ($result->"data") [:find ($result->"data") "cardano_node_metrics_slotInEpoch_int "] [:find ($result->"data") "cardano_node_metrics_Mem_resident_int "] ]
+    :log info message="Previous Slot: $prevSlot";
+    :local slot [:pick $slotinEpochLine  ( [:find $slotinEpochLine " "] + 1 )  [:find $slotinEpochLine "\n"]]
+    :log info message="Current Slot: $slot";
+    :if ($slot != $prevSlot) do={ 
+        :log info message="Node synced to network"; :set prevSlot $slot } else={
+        :log info message= "Do something useful here like.. send email notification" }
+}
